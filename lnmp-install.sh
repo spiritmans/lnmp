@@ -12,7 +12,7 @@ SYSTEM=`cat /etc/issue |awk 'NR==1{print $1,$2,$3}'`
 HOSTNAME=`hostname -s`
 USER=`whoami`
 IP=`ifconfig eth0 |grep 'inet addr' |awk '{print $2}' |awk -F: '{print $2}'`
-DISK_AVAIL=`df -h |awk 'NR==2{print $4}'`
+DISK_FREE=`df -h |awk 'NR==2{print $4}'`
 CPU_AVG=`cat /proc/loadavg |cut -c 1-14`
 MEM_FREE=`free -m |awk 'NR==2{print $4}'`
 SOFT=/usr/local/src/lnmp/soft
@@ -56,28 +56,28 @@ Color_Text() {
   	echo -e " \e[0;$2m$1\e[0m"
 }
 
-Echo_Red() {
+Red() {
   	echo $(Color_Text "$1" "31")
 }
 
-Echo_Green() {
+Green() {
   	echo $(Color_Text "$1" "32")
 }
 
-Echo_Yellow() {
+Yellow() {
   	echo $(Color_Text "$1" "33")
 }
 
-Echo_Blue() {
+Blue() {
   	echo $(Color_Text "$1" "34")
 }
-Echo_Violet() {
+Violet() {
   	echo $(Color_Text "$1" "35")
 }
 
 #choose version
 choose_nginx_version() {
-	Echo_Yellow "You have 3 options for your Nginx install."
+	Yellow "You have 3 options for your Nginx install."
 	echo "1: Install Nginx 1.5.1"
 	echo "2: Install Nginx 1.8.0 (Default)"
 	echo "3: Install Nginx 1.9.5"
@@ -86,17 +86,17 @@ choose_nginx_version() {
 	case $Nginx in
 		1)
 		NGINX=nginx-1.5.1.tar.gz
-		Echo_Blue "You will install $NGINX"
+		Blue "You will install $NGINX"
 		sleep 3
 		;;
 		2)
 		NGINX=nginx-1.8.0.tar.gz
-		Echo_Blue "You will install $NGINX"
+		Blue "You will install $NGINX"
 		sleep 3
 		;;
 		3)
 		NGINX=nginx-1.9.5.tar.gz
-		Echo_Blue "You will install $NGINX"
+		Blue "You will install $NGINX"
 		sleep 3
 		;;
 		0)
@@ -105,14 +105,14 @@ choose_nginx_version() {
 		;;
 		*)
 		NGINX=nginx-1.8.0.tar.gz
-		Echo_Blue "You will install $NGINX"
+		Blue "You will install $NGINX"
 		sleep 3
 		;;
 	esac	
 }
 
 choose_mysql_version() {
-	Echo_Yellow "You have 2 options for your Mysql install."
+	Yellow "You have 2 options for your Mysql install."
 	echo "1: Install Mysql 5.5"
 	echo "2: Install Mysql 5.6 (Default)"
 	echo "0: Return"
@@ -120,12 +120,12 @@ choose_mysql_version() {
 	case $Mysql in
 		1)
 		MYSQL=mysql-5.5.32.tar.gz
-		Echo_Blue "You will install $MYSQL"
+		Blue "You will install $MYSQL"
 		sleep 3
 		;;
 		2)
 		MYSQL=mysql-5.6.25.tar.gz
-		Echo_Blue "You will install $MYSQL"
+		Blue "You will install $MYSQL"
 		sleep 3
 		;;
 		0)
@@ -134,14 +134,14 @@ choose_mysql_version() {
 		;;
 		*)
 		MYSQL=mysql-5.6.25.tar.gz
-		Echo_Blue "You will install $MYSQL"
+		Blue "You will install $MYSQL"
 		sleep 3
 		;;
 	esac	
 }
 
 choose_php_version() {
-	Echo_Yellow "You have 3 options for your Php install."
+	Yellow "You have 3 options for your Php install."
 	echo "1: Install Php 5.4"
 	echo "2: Install Php 5.5"
 	echo "3: Install Php 5.6 (Default)"
@@ -150,17 +150,17 @@ choose_php_version() {
 	case $Php in
 		1)
 		PHP=php-5.4.36.tar.gz
-		Echo_Blue "You will install $PHP"
+		Blue "You will install $PHP"
 		sleep 3
 		;;
 		2)
 		PHP=php-5.5.30.tar.gz
-		Echo_Blue "You will install $PHP"
+		Blue "You will install $PHP"
 		sleep 3
 		;;
 		3)
 		PHP=php-5.6.14.tar.gz
-		Echo_Blue "You will install $PHP"
+		Blue "You will install $PHP"
 		sleep 3
 		;;
 		0)
@@ -169,14 +169,14 @@ choose_php_version() {
 		;;
 		*)
 		PHP=php-5.6.14.tar.gz
-		Echo_Blue "You will install $PHP"
+		Blue "You will install $PHP"
 		sleep 3
 		;;
 	esac
 }			
 
 #check install environment
-function env_check() {
+env_check() {
 	if [ $UID -ne 0 ];then
 		echo "Must be root to run this script!"
 		exit 1
@@ -885,7 +885,7 @@ do
 	| HOSTNAME		:$HOSTNAME
 	| USER			:$USER
 	| IP			:$IP
-	| DISK_AVAIL		:$DISK_AVAIL
+	| DISK_FREE		:$DISK_AVAIL
 	| MEM_FREE		:${MEM_FREE}M
 	| CPU_AVG		:$CPU_AVG
 	|-------------------------------------------
@@ -915,19 +915,19 @@ EOF
 				nginx_install
 				end_time
 				if [ $? -eq 0 ];then
-					Echo_Green "Congratulation!You had installed $NGINX successed!"
+					Green "Congratulation!You had installed $NGINX successed!"
 					exit 0
 				fi
 				;;					
 				n)
 				clear
-				Echo_Violet "Return to the superior directory"
+				Violet "Return to the superior directory"
 				sleep 1
 				break
 				;;
 				*)
 				clear
-				Echo_Red "Wrong Choice!!!Try Again!!"
+				Red "Wrong Choice!!!Try Again!!"
 				continue
 				;;
 			esac
@@ -947,19 +947,19 @@ EOF
 				cmake_install;mysql_install;mysql_set
 				end_time
 				if [ $? -eq 0 ];then
-					Echo_Green "Congratulation!You had installed $MYSQL successed!"
+					Green "Congratulation!You had installed $MYSQL successed!"
 					exit 0
 				fi
 				;;
 				n)
 				clear
-				Echo_Violet "Return to the superior directory"
+				Violet "Return to the superior directory"
 				sleep 1
 				break
 				;;
 				*)
 				clear
-				Echo_Red "Wrong Choice!!!Try Again!!"
+				Red "Wrong Choice!!!Try Again!!"
 				continue
 				;;
 			esac
@@ -983,19 +983,19 @@ EOF
 				set_php
 				end_time
 				if [ $? -eq 0 ];then
-					Echo_Green "Congratulation!You had installed $PHP successed!"
+					Green "Congratulation!You had installed $PHP successed!"
 					exit 0
 				fi
 				;;
 				n)
 				clear
-				Echo_Violet "Return to the superior directory"
+				Violet "Return to the superior directory"
 				sleep 1
 				break
 				;;
 				*)
 				clear
-				Echo_Red "Wrong Choice!!!Try Again!!"
+				Red "Wrong Choice!!!Try Again!!"
 				continue
 				;;
 			esac
@@ -1025,19 +1025,19 @@ EOF
 				set_php
 				end_time
 				if [ $? -eq 0 ];then
-					Echo_Green "Congratulation!You had installed $NGINX $MYSQL $PHP for LNMP successed!"
+					Green "Congratulation!You had installed $NGINX $MYSQL $PHP for LNMP successed!"
 					exit 0
 				fi
 				;;
 				n)
 				clear
-				Echo_Violet "Return to the superior directory"
+				Violet "Return to the superior directory"
 				sleep 1
 				break
 				;;
 				*)
 				clear
-				Echo_Red "Wrong Choice!!!Try Again!!"
+				Red "Wrong Choice!!!Try Again!!"
 				continue
 				;;
 			esac
@@ -1050,14 +1050,14 @@ EOF
 		*)
 		if [ $num -lt 3 ];then
 			num=$(($num+1))
-			Echo_Red "============Wrong input,try again!!!=========="
+			Red "============Wrong input,try again!!!=========="
 			sleep 1
 			clear
 		else
-			echo     	"=========================================="
-	       		Echo_Red 	"|Warning!!You had too many wrong input!!! |"
-	       		Echo_Red 	"|Please Enter Right Choice Again After 5s |"
-	       		echo     	"=========================================="
+			echo 	"==========================================="
+	       	Red 	"|Warning!!You had too many wrong input!!! |"
+	       	Red 	"|Please Enter Right Choice Again After 5s |"
+	       	echo 	"==========================================="
 			for i in `seq -w 5 -1 1`
 			do
 				echo -en "\b\b$i"
