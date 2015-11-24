@@ -71,10 +71,10 @@ elinks http://localhost -dump > /dev/null 2>&1
 
 #main
 case $1 in
-start) START;;
-stop) STOP;;
-restart) RESTART;;
-reload) RELOAD;;
-status) STATUS;;
-*) echo "USAGE: AVGE is start|stop|restart|reload|status";;
+   start) START;;
+   stop) STOP;;
+   restart) RESTART;;
+   reload) RELOAD;;
+   status) STATUS;;
+   *) echo "USAGE: AVGE is start|stop|restart|reload|status";;
 esac
