@@ -885,7 +885,7 @@ do
 	| HOSTNAME		:$HOSTNAME
 	| USER			:$USER
 	| IP			:$IP
-	| DISK_FREE		:$DISK_AVAIL
+	| DISK_FREE		:$DISK_FREE
 	| MEM_FREE		:${MEM_FREE}M
 	| CPU_AVG		:$CPU_AVG
 	|-------------------------------------------
