@@ -1,10 +1,8 @@
 #!/bin/bash
 #date	2015-11-17
 #author	liush
-#ver	3
-
+#ver	1
 ##############################
-
 #variables
 num=0
 DATE=`date +"%Y-%m-%d %H:%M:%S"`
