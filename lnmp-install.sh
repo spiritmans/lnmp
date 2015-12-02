@@ -85,17 +85,17 @@ choose_nginx_version() {
 		1)
 		NGINX=nginx-1.5.1.tar.gz
 		Blue "You will install $NGINX"
-		sleep 3
+		sleep 2
 		;;
 		2)
 		NGINX=nginx-1.8.0.tar.gz
 		Blue "You will install $NGINX"
-		sleep 3
+		sleep 2
 		;;
 		3)
 		NGINX=nginx-1.9.5.tar.gz
 		Blue "You will install $NGINX"
-		sleep 3
+		sleep 2
 		;;
 		0)
 		clear
@@ -104,7 +104,7 @@ choose_nginx_version() {
 		*)
 		NGINX=nginx-1.8.0.tar.gz
 		Blue "You will install $NGINX"
-		sleep 3
+		sleep 2
 		;;
 	esac	
 }
@@ -119,12 +119,12 @@ choose_mysql_version() {
 		1)
 		MYSQL=mysql-5.5.32.tar.gz
 		Blue "You will install $MYSQL"
-		sleep 3
+		sleep 2
 		;;
 		2)
 		MYSQL=mysql-5.6.25.tar.gz
 		Blue "You will install $MYSQL"
-		sleep 3
+		sleep 2
 		;;
 		0)
 		clear
@@ -133,7 +133,7 @@ choose_mysql_version() {
 		*)
 		MYSQL=mysql-5.6.25.tar.gz
 		Blue "You will install $MYSQL"
-		sleep 3
+		sleep 2
 		;;
 	esac	
 }
@@ -149,17 +149,17 @@ choose_php_version() {
 		1)
 		PHP=php-5.4.36.tar.gz
 		Blue "You will install $PHP"
-		sleep 3
+		sleep 2
 		;;
 		2)
 		PHP=php-5.5.30.tar.gz
 		Blue "You will install $PHP"
-		sleep 3
+		sleep 2
 		;;
 		3)
 		PHP=php-5.6.14.tar.gz
 		Blue "You will install $PHP"
-		sleep 3
+		sleep 2
 		;;
 		0)
 		clear
@@ -168,7 +168,7 @@ choose_php_version() {
 		*)
 		PHP=php-5.6.14.tar.gz
 		Blue "You will install $PHP"
-		sleep 3
+		sleep 2
 		;;
 	esac
 }			
@@ -1013,7 +1013,7 @@ EOF
 				choose_php_version
 				clear
 				Blue "You had chose $NGINX $MYSQL $PHP for LNMP install."
-				sleep 5
+				sleep 3
 				env_check
 				nginx_install
 				cmake_install;mysql_install;mysql_set
