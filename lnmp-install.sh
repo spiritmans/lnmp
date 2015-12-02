@@ -1012,7 +1012,7 @@ EOF
 				choose_mysql_version
 				choose_php_version
 				clear
-				Echo_Blue "You had chose $NGINX $MYSQL $PHP for LNMP install."
+				Blue "You had chose $NGINX $MYSQL $PHP for LNMP install."
 				sleep 5
 				env_check
 				nginx_install
