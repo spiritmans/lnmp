@@ -13,6 +13,7 @@ IP=`ifconfig eth0 |grep 'inet addr' |awk '{print $2}' |awk -F: '{print $2}'`
 DISK_FREE=`df -h |awk 'NR==2{print $4}'`
 CPU_AVG=`cat /proc/loadavg |cut -c 1-14`
 MEM_FREE=`free -m |awk 'NR==2{print $4}'`
+FILE_DIR=/usr/local/src/lnmp
 SOFT=/usr/local/src/lnmp/soft
 CMAKE=cmake-2.8.8.tar.gz 
 LIBMCRYPT=libmcrypt-2.5.8.tar.gz
@@ -213,9 +214,9 @@ else
 			if [ $? -eq 0 ];then
 				make install
 				if [ $? -eq 0 ];then
-					cp $SOFT/nginxd /etc/init.d/nginxd && chmod 755 /etc/init.d/nginxd
+					cp $FILE_DIR/nginxd /etc/init.d/nginxd && chmod 755 /etc/init.d/nginxd
 					mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
-					cp /usr/local/src/lnmp/nginx.conf /usr/local/nginx/conf/nginx.conf
+					cp $FILE_DIR/nginx.conf /usr/local/nginx/conf/nginx.conf
 					clear
 					echo "nginx install success"
 				else
