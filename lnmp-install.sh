@@ -238,6 +238,12 @@ else
 fi
 }
 
+nginx_set() {
+	cp $FILE_DIR/nginxd /etc/init.d/nginxd && chmod 755 /etc/init.d/nginxd
+	mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
+	cp $FILE_DIR/nginx.conf /usr/local/nginx/conf/nginx.conf
+	echo "<?php phpinfo() ?>" >>/usr/local/nginx/html/index.php
+}
 #cmake install
 cmake_install () {
 if [ ! -f $SOFT/$CMAKE ];then
