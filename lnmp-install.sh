@@ -857,8 +857,10 @@ fi
 php=`echo $PHP |awk -F '.tar' '{print $1}'`
 cd $SOFT/$php
 cp php.ini-production /usr/local/php/etc/php.ini
+cp sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
 cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
 chmod 755 /usr/local/php/etc/*
+chmod 755 /etc/init.d/php-fpm
 echo '
 extension = imagick.so
 extension = memcache.so
