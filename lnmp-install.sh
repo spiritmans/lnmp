@@ -854,6 +854,66 @@ install_imagick() {
 #    fi
 #}
 
+install_gettext() {
+	cd $SOFT/$php/ext/gettext
+	/usr/local/php/bin/phpize
+	if [ $? -eq 0 ];then
+		./configure --with-php-config=/usr/local/php/bin/php-config
+		if [ $? -eq 0 ];then
+			make && make install 
+			if [ $? -eq 0 ];then
+				echo "gettext install successed."
+			else
+				echo "make failed":exit
+			fi
+		else
+			echo "configure failed!";exit 1
+		fi
+	else
+		echo "phpize failed!";exit 1
+	fi
+}
+
+install_ftp() {
+	cd $SOFT/$php/ext/ftp
+	/usr/local/php/bin/phpize
+	if [ $? -eq 0 ];then
+		./configure --with-php-config=/usr/local/php/bin/php-config
+		if [ $? -eq 0 ];then
+			make && make install 
+			if [ $? -eq 0 ];then
+				echo "ftp install successed."
+			else
+				echo "make failed":exit
+			fi
+		else
+			echo "configure failed!";exit 1
+		fi
+	else
+		echo "phpize failed!";exit 1
+	fi
+}
+
+install_tidy() {
+	cd $SOFT/$php/ext/tidy
+	/usr/local/php/bin/phpize
+	if [ $? -eq 0 ];then
+		./configure --with-php-config=/usr/local/php/bin/php-config
+		if [ $? -eq 0 ];then
+			make && make install 
+			if [ $? -eq 0 ];then
+				echo "tidy install successed."
+			else
+				echo "make failed":exit
+			fi
+		else
+			echo "configure failed!";exit 1
+		fi
+	else
+		echo "phpize failed!";exit 1
+	fi
+}
+
 #set
 set_php () {
 id www >/dev/null
@@ -869,14 +929,13 @@ chmod 755 /usr/local/php/etc/*
 chmod 755 /etc/init.d/php-fpm
 echo '
 extension = imagick.so
+extension = ftp.so
+extension = gettext.so
 extension = memcache.so
 extension = memcached.so
-#extension = mysql.so
-#extension = mysqli.so' >>/usr/local/php/etc/php.ini
-echo '
-<?php
-	phpinfo();
-?>' >>/var/www/html/index.php
+;extension = mysql.so
+;extension = mysqli.so' >>/usr/local/php/etc/php.ini
+sed -i 's#; date.timezone =#date.timezone = Asia/Shanghai#' /usr/local/php/etc/php.ini
 }
 
 
@@ -987,6 +1046,7 @@ EOF
 				libiconv_install;libmcrypt_install;mhash_install;mcrypt_install
 				php_install
 				install_memcache;install_libmemcached;install_memcached;install_imagemagick;install_imagick
+				install_gettext;install_ftp;install_tidy
 				set_php
 				end_time
 				if [ $? -eq 0 ];then
@@ -1029,6 +1089,7 @@ EOF
 				libiconv_install;libmcrypt_install;mhash_install;mcrypt_install
 				php_install
 				install_memcache;install_libmemcached;install_memcached;install_imagemagick;install_imagick
+				install_gettext;install_ftp;install_tidy
 				set_php
 				end_time
 				if [ $? -eq 0 ];then
