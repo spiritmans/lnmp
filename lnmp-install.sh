@@ -1136,6 +1136,7 @@ EOF
 				y)
 				clear
 				start_time
+				choose_mysql_version
 				choose_php_version
 				env_check
 				cmake_install;mysql_install;mysql_set
