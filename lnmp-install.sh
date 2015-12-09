@@ -332,7 +332,7 @@ nginx_set() {
 	cp $FILE_DIR/nginx.conf /usr/local/nginx/conf/nginx.conf
 	dos2unix /etc/init.d/nginxd
 	dos2unix /usr/local/nginx/conf/nginx.conf
-	echo "<?php phpinfo() ?>" >>/usr/local/nginx/html/index.php
+	echo "<?php phpinfo() ?>" >/usr/local/nginx/html/index.php
 }
 #cmake install
 cmake_install() {
@@ -1023,7 +1023,7 @@ extension = ftp.so
 extension = tidy.so
 extension = memcache.so
 extension = memcached.so
-;extension = gettext.so
+extension = gettext.so
 ;extension = mysql.so
 ;extension = mysqli.so' >>/usr/local/php/etc/php.ini
 sed -i 's#; date.timezone =#date.timezone = Asia/Shanghai#' /usr/local/php/etc/php.ini
