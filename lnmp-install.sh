@@ -909,40 +909,41 @@ install_imagick() {
     fi
 }
 
-#install_pdo_mysql() {
-#    if [ ! -f $SOFT/$POD_MYSQL ];then
-#        echo "There is no $POD_MYSQL"
-#    else
-#    	cd $SOFT
-#        pdo_mysql=`echo $POD_MYSQL |awk -F ".tgz" '{print $1}'`
-#        tar fx $SOFT/$POD_MYSQL && cd $SOFT/$pdo_mysql
-#        if [ ! -x /usr/local/php/bin/phpize ];then
-#            echo "There is no '/usr/local/php/bin/phpize'";exit 1
-#        else
-#	        /usr/local/php/bin/phpize
-#	        if [ $? -eq 0 ];then
-#	            ./configure --with-php-config=/usr/local/php/bin/php-config --with-pdo-mysql=/usr/local/mysql
-#	            if [ $? -eq 0 ];then
-#	                make
-#	                if [ $? -eq 0 ];then
-#	                    make install
-#	                    if [ $? -eq 0 ];then
-#	                        echo "$POD_MYSQL install successed."
-#	                    else
-#	                        echo "$POD_MYSQL make install failed!!";exit 1
-#	                    fi
-#	                else
-#	                    echo "$POD_MYSQL make failed!!";exit 1
-#	                fi
-#	            else
-#	                echo "$POD_MYSQL configure failed!!";exit 1
-#	            fi
-#	        else
-#	            echo "$POD_MYSQL create configure file failed!!";exit 1
-#	        fi
-#	    fi
-#    fi
-#}
+install_pdo_mysql() {
+	 ln -s /usr/local/mysql/include/* /usr/local/include/	
+    if [ ! -f $SOFT/$POD_MYSQL ];then
+        echo "There is no $POD_MYSQL"
+    else
+   		cd $SOFT
+        pdo_mysql=`echo $POD_MYSQL |awk -F ".tgz" '{print $1}'`
+        tar fx $SOFT/$POD_MYSQL && cd $SOFT/$pdo_mysql
+        if [ ! -x /usr/local/php/bin/phpize ];then
+            echo "There is no '/usr/local/php/bin/phpize'";exit 1
+        else
+	        /usr/local/php/bin/phpize
+	        if [ $? -eq 0 ];then
+	            ./configure --with-php-config=/usr/local/php/bin/php-config --with-pdo-mysql=/usr/local/mysql
+	            if [ $? -eq 0 ];then
+	                make
+	                if [ $? -eq 0 ];then
+	                    make install
+	                    if [ $? -eq 0 ];then
+	                        echo "$POD_MYSQL install successed."
+	                    else
+	                        echo "$POD_MYSQL make install failed!!";exit 1
+	                    fi
+	                else
+	                    echo "$POD_MYSQL make failed!!";exit 1
+	                fi
+	            else
+	                echo "$POD_MYSQL configure failed!!";exit 1
+	            fi
+	        else
+	            echo "$POD_MYSQL create configure file failed!!";exit 1
+	        fi
+	    fi
+    fi
+}
 
 install_gettext() {
 	cd $SOFT/$php/ext/gettext
