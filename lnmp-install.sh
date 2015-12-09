@@ -189,7 +189,7 @@ env_check() {
 	fi
 	echo "Yum install dependencies.............."
 	#yum install -y gcc* openssl-devel zlib-devel pcre-devel ncurses-devel libtool libxml2-devel libpng-devel bzip2-devel curl-devel libjpeg-devel freetype-devel net-snmp-devel openldap openldap-devel
-	yum -y install gcc gcc-c++ pcre-devel make gd-devel autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel net-snmp-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5-devel libidn libidn-devel openssl openssl-devel openldap openldap-devel  openldap-clients openldap-servers libxslt-devel libevent-devel ntp  libtool-ltdl bison libtool vim-enhanced
+	yum -y install gcc gcc-c++ pcre-devel make gd-devel autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel net-snmp-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5-devel libidn libidn-devel openssl openssl-devel openldap openldap-devel  openldap-clients openldap-servers libxslt-devel libevent-devel ntp libtidy libtidy-devel libtool-ltdl bison libtool vim-enhanced dos2unix
 	if [ $? -eq 0 ];then
 		echo "yum install dependencies success!"
 		clear
@@ -289,7 +289,6 @@ jemalloc_install() {
 
 #tengine install
 tengine_install() {
-	pcre_install;jemalloc_install
 	if [ ! -f $SOFT/$NGINX ];then
 		echo "There is no $NGINX"
 	else
@@ -331,6 +330,8 @@ nginx_set() {
 	cp $FILE_DIR/nginxd /etc/init.d/nginxd && chmod 755 /etc/init.d/nginxd
 	mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
 	cp $FILE_DIR/nginx.conf /usr/local/nginx/conf/nginx.conf
+	dos2unix /etc/init.d/nginxd
+	dos2unix /usr/local/nginx/conf/nginx.conf
 	echo "<?php phpinfo() ?>" >>/usr/local/nginx/html/index.php
 }
 #cmake install
@@ -896,7 +897,7 @@ install_imagick() {
 	                        echo "$IMAGICK make install failed!!";exit 1
 	                    fi
 	                else
-	                    echo "$IMAGICK make failed!!";exit 1
+	                	echo "$IMAGICK make failed!!";exit 1
 	                fi
 	            else
 	                echo "$IMAGICK configure failed!!";exit 1
@@ -1019,9 +1020,10 @@ chmod 755 /etc/init.d/php-fpm
 echo '
 extension = imagick.so
 extension = ftp.so
-extension = gettext.so
+extension = tidy.so
 extension = memcache.so
 extension = memcached.so
+;extension = gettext.so
 ;extension = mysql.so
 ;extension = mysqli.so' >>/usr/local/php/etc/php.ini
 sed -i 's#; date.timezone =#date.timezone = Asia/Shanghai#' /usr/local/php/etc/php.ini
@@ -1068,6 +1070,7 @@ EOF
 				choose_nginx_version
 				if [ $Nginx -eq 3 ];then
 					env_check
+					pcre_install;jemalloc_install
 					tengine_install
 					nginx_set
 				else
