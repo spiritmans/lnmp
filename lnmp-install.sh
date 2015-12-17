@@ -425,7 +425,7 @@ mysql_install() {
 mysql_set() {
 	id mysql >/dev/null
 	if [ $? -ne 0 ];then
-		useradd mysql
+		useradd -s /sbin/nologin mysql
 	fi
 		chown -R mysql.mysql /usr/local/mysql
 		cd $SOFT/$mysql
@@ -1009,7 +1009,7 @@ install_tidy() {
 set_php () {
 id www >/dev/null
 if [ $? -ne 0 ];then
-	useradd www
+	useradd -s /sbin/nologin www
 fi
 php=`echo $PHP |awk -F '.tar' '{print $1}'`
 cd $SOFT/$php
