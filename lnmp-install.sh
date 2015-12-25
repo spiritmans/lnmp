@@ -1185,7 +1185,7 @@ EOF
 				Blue "You had chose $NGINX $MYSQL $PHP for LNMP install."
 				sleep 3
 				env_check
-				nginx_install
+				nginx_install;nginx_set
 				cmake_install;mysql_install;mysql_set
 				libiconv_install;libmcrypt_install;mhash_install;mcrypt_install
 				php_install
